@@ -1,0 +1,2 @@
+# .netcoretool
+some .netcoretool
