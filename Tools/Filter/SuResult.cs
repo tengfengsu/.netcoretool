@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,13 @@ namespace Tools.Filter
                 noResult.StatusCode = 200;
                 context.Result = noResult;
             }
-            else if (result.Value?.GetType() != _ResultType)
+            else if (result.Value is ValidationProblemDetails)
+            {
+                var errors = ((ValidationProblemDetails)result.Value).Errors;
+                var str = errors.Select(dic => $"{dic.Key}:{string.Join(" ", dic.Value)}");
+                context.Result = new ObjectResult(Result.FromData(str));
+            }
+            else if (result.DeclaredType != _ResultType)
             {
                 context.Result = new ObjectResult(Result.FromData(result.Value));
             }

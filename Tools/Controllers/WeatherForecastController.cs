@@ -56,7 +56,15 @@ namespace Tools.Controllers
         [HttpGet("GetFromNoResult")]
         public async Task GetFromNoResult()
         {
-            return ;
+            return;
+        }
+
+        [SuResult]
+        //[NoWarpResult]
+        [HttpPost("ValidateInterface")]
+        public async Task ValidateInterface(Input input)
+        {
+            return;
         }
     }
 }
