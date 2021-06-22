@@ -66,5 +66,12 @@ namespace Tools.Controllers
         {
             return;
         }
+
+        [ArgumentAuthentication]
+        [HttpPost("ArgumentAuth")]
+        public async Task ArgumentAuth(Authentication input)
+        {
+            return;
+        }
     }
 }
