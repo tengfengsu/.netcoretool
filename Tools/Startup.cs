@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tools.Middlerware;
 
 namespace Tools
 {
@@ -31,6 +32,11 @@ namespace Tools
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tools", Version = "v1" });
             });
+            services.AddBlack(config =>
+            {
+                config.IsEnable = true;
+                config.Blacks = new List<string>() { "http://localhost:17794" };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +48,7 @@ namespace Tools
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tools v1"));
             }
+            app.UseBlack();
 
             app.UseRouting();
 
